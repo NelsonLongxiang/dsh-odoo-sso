@@ -1,15 +1,15 @@
 /**
- * Piweb SSO 插件骨架（v0）——L3 全能型六贡献面。
+ * Odoo SSO 插件骨架（v0）——L3 全能型六贡献面。
  * 每面：契约注释 + 空实现 + TODO(v1) 标记。判据先红：骨架面缺实现即红。
  */
 import { Context, Service } from '@deepseek-ai/cordis';
-import { PIWEB_SSO_PATHS, type PiwebSsoConfig } from './contract.ts';
+import { PIWEB_SSO_PATHS, type OdooSsoConfig } from './contract.ts';
 
 export const inject = ['tools', 'timer', 'systemPrompt'];
 
 export class SsoService extends Service {
   constructor(ctx: Context) {
-    super(ctx, 'piwebSso');
+    super(ctx, 'odooSso');
   }
   /** ① 握手：Odoo 会话校验（v1 实现——v0 骨架 throw） */
   async handshake(): Promise<{ uid: number; login: string; groups: string[] }> {
@@ -21,9 +21,9 @@ export class SsoService extends Service {
   }
 }
 
-export function apply(ctx: Context, config: PiwebSsoConfig) {
+export function apply(ctx: Context, config: OdooSsoConfig) {
   // ③ 自注册：向 svc-auth 声明身份源（v1 接 svc-auth 面时启用）
   ctx.plugin(SsoService);
   // TODO(v1): ④路由 ⑤中间件 ⑥MCP 工具 ⑦UI slot ⑧生命周期清理
-  ctx.logger('piweb-sso').info('v0 骨架就绪（odooBase=%s）', config.odooBase);
+  ctx.logger('odoo-sso').info('v0 骨架就绪（odooBase=%s）', config.odooBase);
 }

@@ -17,7 +17,7 @@ ok('② v0 空实现带 throw', idx.includes('v0 骨架'));
 ok('② TODO(v1) 标记', (idx.match(/TODO\(v1\)/g) ?? []).length >= 1);
 
 const patch = existsSync('cordis.patch.yml') ? readFileSync('cordis.patch.yml', 'utf8') : '';
-ok('③ bundle 行声明', patch.includes('piweb-sso'));
+ok('③ bundle 行声明', patch.includes('odoo-sso'));
 
 try {
   const r = await fetch('http://192.168.3.88:8069/web/login', { signal: AbortSignal.timeout(5000) });
