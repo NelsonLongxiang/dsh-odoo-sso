@@ -1,0 +1,3 @@
+# bundle 行声明（loader 行所有者）
+plugins:
+  - piweb-sso

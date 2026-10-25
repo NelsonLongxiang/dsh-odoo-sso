@@ -1,0 +1,19 @@
+{
+  "name": "@nelsonlongxiang/dsh-piweb-sso",
+  "version": "0.0.1",
+  "description": "Piweb SSO——Odoo 19 身份源接入（piweb_sso 握手 + JWT·RBAC 会话），L3 全能型 DSH 插件",
+  "type": "module",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "check": "tsc --noEmit"
+  },
+  "keywords": [
+    "dsh-plugin",
+    "sso",
+    "odoo"
+  ],
+  "dependencies": {
+    "@deepseek-ai/cordis": "^4.0.5"
+  }
+}
