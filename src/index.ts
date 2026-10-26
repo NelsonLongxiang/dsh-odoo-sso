@@ -35,6 +35,25 @@ export class SsoService extends Service {
 export function apply(ctx: Context, config: OdooSsoConfig) {
   // ③ 自注册：向 svc-auth 声明身份源（v1 接 svc-auth 面时启用）
   ctx.plugin(SsoService, config);
-  // TODO(v1): ④路由 ⑤中间件 ⑥MCP 工具 ⑦UI slot ⑧生命周期清理
+  // ④路由：/odoo/sso/* 三面（SSO v1·属主令「都需要」）
+  const routes = ctx.router;
+  routes.get('/odoo/sso/handshake', async (koaCtx) => {
+    const sid = /session_id=([^;\s]+)/.exec(String(koaCtx.headers.cookie ?? ''))?.[1] ?? '';
+    if (!sid) { koaCtx.status = 401; koaCtx.body = { error: '无 session_id' }; return; }
+    try {
+      const result = await ctx.get('odooSso').handshake(sid);
+      koaCtx.body = result;
+    } catch (e) {
+      koaCtx.status = 401; koaCtx.body = { error: String((e as Error).message).slice(0, 120) };
+    }
+  });
+  routes.get('/odoo/sso/redirect', (koaCtx) => {
+    const target = (ctx.get('odooSso') as any).config?.odooBase ?? '';
+    koaCtx.redirect(`${target}/web/login?redirect=/odoo/sso/handshake`);
+  });
+  routes.post('/odoo/sso/logout', (koaCtx) => {
+    koaCtx.body = { ok: true, hint: '销 Odoo 会话：跳 Odoo /web/login?logout=1（v2 实装销毁端点）' };
+  });
+  // ⑤中间件 ⑥MCP 工具 ⑦UI slot ⑧生命周期清理
   ctx.logger('odoo-sso').info('v0 骨架就绪（odooBase=%s）', config.odooBase);
 }
