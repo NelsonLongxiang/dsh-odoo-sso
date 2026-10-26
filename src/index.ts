@@ -14,7 +14,7 @@ export class SsoService extends Service {
     this.ssoConfig = config;
   }
   get config(): OdooSsoConfig { return this.ssoConfig; }
-  /** ① 握手：Odoo 会话校验——v1 实装（调 Odoo /odoo_sso/handshake·带 session_id cookie） */
+  /** ① 握手：Odoo 会话校验——v1 实装（调 Odoo /piweb_sso/handshake·带 session_id cookie） */
   async handshake(sessionId: string): Promise<{ uid: number; login: string; groups: string[]; session_valid: boolean }> {
     const odooBase = (this.config as OdooSsoConfig).odooBase;
     const res = await fetch(`${odooBase}${PIWEB_SSO_PATHS.handshake}`, {

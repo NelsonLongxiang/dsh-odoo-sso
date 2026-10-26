@@ -17,9 +17,9 @@
 
 /** odoo_sso 握手端点（Odoo 侧模块——v1 装） */
 export const PIWEB_SSO_PATHS = {
-  handshake: '/odoo_sso/handshake',   // GET：会话校验 → { uid, login, groups[], session_valid }
-  redirect: '/odoo_sso/redirect',     // GET：无会话 → 302 Odoo 登录带回跳
-  logout: '/odoo_sso/logout',         // POST：销Odoo会话
+  handshake: '/piweb_sso/handshake',   // GET：会话校验 → { uid, login, groups[], session_valid }
+  redirect: '/piweb_sso/redirect',     // GET：无会话 → 302 Odoo 登录带回跳
+  logout: '/piweb_sso/logout',         // POST：销Odoo会话
 } as const;
 
 /** 插件配置（cordis.yml config 面） */
